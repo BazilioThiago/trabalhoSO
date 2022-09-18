@@ -1,0 +1,100 @@
+#include <iostream>
+#include <thread>
+#include <time.h>
+
+using namespace std;
+#define tamanho 100000
+
+int* vetor = new int[tamanho];
+
+void criar() {
+    /*for (int i = sta; i < end; i++) {
+        vetor[i] = NULL;
+    }*/
+
+    for (int i = 0; i < tamanho; i++) {
+        vetor[i] = (rand() % 99) + 1;
+
+        /*cout << vetor[i] << " ";*/
+    }
+    //cout << endl;
+}
+
+void ordenar(int sta, int end) {
+
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = sta; j < end; j++) {
+
+            if (vetor[j] > vetor[i]) {
+
+                int flex = vetor[i];
+                vetor[i] = vetor[j];
+                vetor[j] = flex;
+            }
+        }
+
+    }
+    //cout << endl;
+}
+
+void executar() {
+    if (tamanho == 100000) { cout << "* Vetor de 100.000 *" << endl; }
+    else { cout << "* Vetor de " << tamanho << " * " << endl; }
+
+    int quarto = tamanho / 4;
+    int metade = quarto * 2;
+    int terco = quarto * 3;
+
+    //preencher
+
+    criar();
+    ordenar;
+
+    //multi
+    /*clock_t start, end;
+    double tempo;
+    start = clock();
+
+    thread o1(ordenar, 0, quarto);
+    thread o2(ordenar, quarto, metade);
+    thread o3(ordenar, metade, terco);
+    thread o4(ordenar, terco, tamanho);
+    o1.join();
+    o2.join();
+    o3.join();
+    o4.join();
+    ordenar(0, tamanho);
+
+    end = clock();
+    tempo = ((double)(end - start)) / CLOCKS_PER_SEC;
+    cout << "Ordenar o vetor com multi levou " << tempo << " segundos:";*/
+
+    //single
+    clock_t start, end;
+    double tempo;
+    start = clock();
+
+    ordenar(0, tamanho);
+
+    end = clock();
+    tempo = ((double)(end - start)) / CLOCKS_PER_SEC;
+    cout << "Ordenar o vetor com single levou " << tempo << " segundos:";
+
+}
+
+int main()
+{
+    //aloca colunas
+    srand((unsigned)time(0));
+    executar();
+
+    //imprimir
+    cout << endl;
+    cout << "Ordenado:" << endl;
+    for (int i = 0; i < tamanho; i++) {
+        cout << vetor[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
